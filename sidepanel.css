@@ -1,0 +1,304 @@
+
+
+/* ── Google Font Import ─────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap');
+
+/* ── Theme Variables ────────────────────────────────────────────── */
+/* Light mode (default) */
+:root {
+  --bg-primary:    #ffffff;
+  --bg-secondary:  #f7f7f8;
+  --bg-tertiary:   #efefef;
+  --border:        #e0e0e0;
+  --text-primary:  #1a1a1a;
+  --text-secondary:#6b7280;
+  --accent:        #2563eb;
+  --accent-hover:  #1d4ed8;
+  --danger:        #dc2626;
+  --danger-hover:  #b91c1c;
+  --tab-active-bg: #ffffff;
+  --shadow:        0 1px 3px rgba(0,0,0,0.08);
+}
+
+/* Dark mode — toggled by adding class="dark" to <body> */
+body.dark {
+  --bg-primary:    #1a1a1a;
+  --bg-secondary:  #242424;
+  --bg-tertiary:   #2e2e2e;
+  --border:        #383838;
+  --text-primary:  #f0f0f0;
+  --text-secondary:#9ca3af;
+  --accent:        #3b82f6;
+  --accent-hover:  #2563eb;
+  --tab-active-bg: #1a1a1a;
+  --shadow:        0 1px 3px rgba(0,0,0,0.3);
+}
+
+/* ── Reset & Base ───────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden; /* No outer scroll — the textarea scrolls instead */
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* ── Header ─────────────────────────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-secondary);
+  flex-shrink: 0;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.header-actions {
+  display: flex;
+  gap: 4px;
+}
+
+/* ── Toolbar (Note Tabs) ────────────────────────────────────────── */
+.toolbar {
+  display: flex;
+  align-items: center;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-secondary);
+  gap: 4px;
+  overflow-x: auto;
+  flex-shrink: 0;
+  scrollbar-width: none; /* Hide scrollbar on Firefox */
+}
+
+.toolbar::-webkit-scrollbar {
+  display: none; /* Hide scrollbar on Chrome */
+}
+
+.note-tabs {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.note-tabs::-webkit-scrollbar { display: none; }
+
+/* Individual tab button */
+.note-tab {
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.note-tab:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+/* Active / selected tab */
+.note-tab.active {
+  background: var(--tab-active-bg);
+  border-color: var(--border);
+  color: var(--text-primary);
+  font-weight: 500;
+  box-shadow: var(--shadow);
+}
+
+/* Delete (×) button inside each tab */
+.note-tab .tab-close {
+  font-size: 10px;
+  line-height: 1;
+  color: var(--text-secondary);
+  border-radius: 50%;
+  padding: 1px 2px;
+  transition: background 0.1s;
+}
+
+.note-tab .tab-close:hover {
+  background: var(--bg-tertiary);
+  color: var(--danger);
+}
+
+/* ── Formatting Bar ─────────────────────────────────────────────── */
+.format-bar {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-secondary);
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.fmt-btn {
+  padding: 4px 7px;
+  border: none;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  font-family: 'Inter', sans-serif;
+}
+
+.fmt-btn:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.fmt-btn.danger:hover {
+  background: #fee2e2;
+  color: var(--danger);
+}
+
+body.dark .fmt-btn.danger:hover {
+  background: #450a0a;
+  color: #f87171;
+}
+
+.separator {
+  width: 1px;
+  height: 16px;
+  background: var(--border);
+  margin: 0 3px;
+}
+
+/* ── Editor ─────────────────────────────────────────────────────── */
+.editor-wrapper {
+  flex: 1;           /* Takes all remaining vertical space */
+  overflow: hidden;
+  padding: 0;
+}
+
+.editor {
+  width: 100%;
+  height: 100%;
+  padding: 14px 14px;
+  border: none;
+  outline: none;
+  resize: none;       /* Remove the resize handle — editor fills the space */
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  transition: background 0.2s, color 0.2s;
+  overflow-y: auto;
+}
+
+.editor::placeholder {
+  color: var(--text-secondary);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+}
+
+/* Scrollbar styling for the editor */
+.editor::-webkit-scrollbar {
+  width: 4px;
+}
+.editor::-webkit-scrollbar-track {
+  background: transparent;
+}
+.editor::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+/* ── Footer ─────────────────────────────────────────────────────── */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 12px;
+  border-top: 1px solid var(--border);
+  background: var(--bg-secondary);
+  flex-shrink: 0;
+}
+
+.status-msg {
+  font-size: 11px;
+  color: var(--text-secondary);
+  transition: opacity 0.3s;
+}
+
+.status-msg.saved {
+  color: #16a34a;
+}
+
+body.dark .status-msg.saved {
+  color: #4ade80;
+}
+
+.char-count {
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ── Generic Icon Button ────────────────────────────────────────── */
+.icon-btn {
+  padding: 4px 8px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.icon-btn:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.new-note-btn {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.new-note-btn:hover {
+  background: var(--bg-tertiary);
+  color: var(--accent-hover);
+}
