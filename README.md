@@ -20,7 +20,7 @@ A minimal Chrome extension that adds a persistent sidebar for taking notes while
 
 1. Clone this repository
    ```
-   git clone https://github.com/yourusername/scribbr.git
+   git clone https://github.com/yourusername/scribblr.git
    ```
 
 2. Open Chrome and navigate to `chrome://extensions`
