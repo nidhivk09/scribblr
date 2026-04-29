@@ -1,4 +1,4 @@
-# Quick Notes
+# Scribblr
 
 A minimal Chrome extension that adds a persistent sidebar for taking notes while browsing. Built with Manifest V3, the Chrome Side Panel API, and `chrome.storage`.
 
@@ -20,14 +20,14 @@ A minimal Chrome extension that adds a persistent sidebar for taking notes while
 
 1. Clone this repository
    ```
-   git clone https://github.com/yourusername/quick-notes.git
+   git clone https://github.com/yourusername/scribbr.git
    ```
 
 2. Open Chrome and navigate to `chrome://extensions`
 
 3. Enable **Developer Mode** using the toggle in the top-right corner
 
-4. Click **Load Unpacked** and select the `quick-notes/` folder
+4. Click **Load Unpacked** and select the `scribblr/` folder
 
 5. Pin the extension by clicking the puzzle piece icon in the toolbar, then clicking the pin next to Quick Notes
 
@@ -38,7 +38,7 @@ A minimal Chrome extension that adds a persistent sidebar for taking notes while
 ## Project Structure
 
 ```
-quick-notes/
+scribblr/
 ├── manifest.json       # Extension configuration and permissions
 ├── background.js       # Service worker — handles commands and panel toggling
 ├── sidepanel.html      # Side panel markup
@@ -96,6 +96,4 @@ Not yet published. To publish your own version, see [Chrome's developer document
 
 ---
 
-## License
 
-MIT
